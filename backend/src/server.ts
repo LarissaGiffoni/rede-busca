@@ -1,5 +1,7 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import authRoutes from './modules/auth/auth.routes';
 
 const app = express();
 
@@ -7,6 +9,8 @@ const app = express();
 app.use(cors());
 // Permite que o backend entenda JSON
 app.use(express.json());
+
+app.use('/api/auth', authRoutes);
 
 // Rota de teste (Health Check)
 app.get('/health', (req, res) => {
