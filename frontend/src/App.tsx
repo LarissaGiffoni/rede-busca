@@ -1,26 +1,20 @@
-import { useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import ProtectedRoute from './components/auth/ProtectedRoute'
+import DashboardPage from './pages/DashboardPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <h1 className="text-red-500 text-4xl font-bold mb-4">
-        Rede Busca - Teste Tailwind
-      </h1>
-      
-      <p className="text-gray-700 mb-6 text-lg">
-        Se este texto estiver estilizado, o Tailwind está funcionando!
-      </p>
-
-      <button
-        type="button"
-        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-        onClick={() => setCount((count) => count + 1)}
-      >
-        Contador: {count}
-      </button>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   )
 }
 

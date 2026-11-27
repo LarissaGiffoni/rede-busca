@@ -1,1 +1,74 @@
 @import "tailwindcss";
+
+@theme {
+  --color-ink: #0c0c0c;
+  --color-graphite: #181818;
+  --color-gold: #c9a45c;
+  --color-champagne: #e5c98c;
+  --color-ivory: #f5f2eb;
+  --color-muted: #aaa59a;
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+  --font-editorial: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+}
+
+:root {
+  font-family: var(--font-sans);
+  color: var(--color-ivory);
+  background: var(--color-ink);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+
+  --color-ink: #0c0c0c;
+  --color-graphite: #181818;
+  --color-gold: #c9a45c;
+  --color-champagne: #e5c98c;
+  --color-ivory: #f5f2eb;
+  --color-muted: #aaa59a;
+  --color-subtle: #77736b;
+  --color-rule: rgb(245 242 235 / 14%);
+  --font-editorial: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--color-ink);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-ink);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-champagne);
+  outline-offset: 4px;
+}
+
+::selection {
+  color: var(--color-ink);
+  background: var(--color-champagne);
+}
