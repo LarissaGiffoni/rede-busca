@@ -48,6 +48,9 @@ function DashboardPage() {
         <p className="dashboard-description">
           Você está na sua área da Rede Busca. Este espaço será ampliado em breve.
         </p>
+        <Link className="dashboard-create-link" to="/desaparecimentos/novo">
+          Registrar desaparecimento
+        </Link>
         <div className="dashboard-rule" />
         <p className="dashboard-account">
           Sessão iniciada como <strong>{user.email}</strong>

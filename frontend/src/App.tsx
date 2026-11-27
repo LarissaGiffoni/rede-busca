@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import DashboardPage from './pages/DashboardPage'
 import LoginPage from './pages/LoginPage'
+import MissingPersonFormPage from './pages/MissingPersonFormPage'
 import RegisterPage from './pages/RegisterPage'
 
 function App() {
@@ -12,6 +13,10 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route
+          path="/desaparecimentos/novo"
+          element={<MissingPersonFormPage />}
+        />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
