@@ -8,9 +8,76 @@ datasource db {
 } 
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique    
-  password  String
-  createdAt DateTime @default(now())
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  password     String
+  createdAt    DateTime      @default(now())
+  publications Publication[]
+}
+
+enum PublicationTransportMode {
+  WALKING          @map("walking")
+  VEHICLE          @map("vehicle")
+  PUBLIC_TRANSPORT @map("public-transport")
+  UNKNOWN          @map("unknown")
+}
+
+enum PublicationPoliceReportAnswer {
+  YES               @map("yes")
+  NO                @map("no")
+  PREFER_NOT_TO_SAY @map("prefer-not-to-say")
+}
+
+model Publication {
+  id                      String                     @id @default(uuid())
+  authorId                String
+  author                  User                       @relation(fields: [authorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  personName              String
+  age                     Int
+  height                  String?
+  physicalCharacteristics String?
+  distinguishingMarks     String?
+  lastContactDate         DateTime                   @db.Date
+  lastContactTime         DateTime                   @db.Time(0)
+  state                   String                     @db.Char(2)
+  city                    String
+  neighborhood            String
+  clothing                String?
+  circumstances           String?
+  likelyTransport         PublicationTransportMode?
+  createdAt               DateTime                   @default(now()) @db.Timestamptz(3)
+  privateDetails          PublicationPrivateDetails?
+
+  @@index([authorId])
+  @@map("tbl_002_publication")
+}
+
+model PublicationPrivateDetails {
+  publicationId                          String                         @id
+  publication                            Publication                    @relation(fields: [publicationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  lastKnownAddress                       String?
+  healthConditions                       String?
+  healthConditionsPreferNotToSay         Boolean                        @default(false)
+  continuousMedication                   String?
+  continuousMedicationPreferNotToSay     Boolean                        @default(false)
+  mobilityDifficulty                     String?
+  mobilityDifficultyPreferNotToSay       Boolean                        @default(false)
+  memoryOrDisorientation                 String?
+  memoryOrDisorientationPreferNotToSay   Boolean                        @default(false)
+  disappearanceHistory                   String?
+  disappearanceHistoryPreferNotToSay     Boolean                        @default(false)
+  otherRelevantInformation               String?
+  otherRelevantInformationPreferNotToSay Boolean                        @default(false)
+  informantName                          String?
+  relationship                           String?
+  contactPhone                           String?
+  hasPoliceReport                        PublicationPoliceReportAnswer?
+  policeReportNumber                     String?
+  responsibilityConfirmed                Boolean
+  legalGuardianConsent                   Boolean?
+  legalGuardianConsentAt                 DateTime?                      @db.Timestamptz(3)
+  legalGuardianConsentIp                 String?
+
+  @@map("tbl_003_publication_private_details")
 }
